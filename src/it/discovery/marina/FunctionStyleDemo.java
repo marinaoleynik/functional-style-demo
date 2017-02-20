@@ -1,13 +1,15 @@
 package it.discovery.marina;
 
+
 import java.util.Optional;
 import java.util.stream.IntStream;
 
 /**
  * Created by Марина on 16.02.2017.
  */
+
 public class FunctionStyleDemo {
-    public static void main(String[] args) {
+   public static void main(String[] args){
         System.out.println(FunctionStyleDemo.countOfDigits("123"));
         System.out.println(FunctionStyleDemo.countOfDigits("abc123"));
         System.out.println(FunctionStyleDemo.countOfDigits("4abc123"));
@@ -18,7 +20,9 @@ public class FunctionStyleDemo {
         getStream(null);
         System.out.println(getStream(null).toString());
 
+
   }
+
 
     static long countOfDigits(String incomingString) {
         return getStream(incomingString).map((value) -> value.filter(Character::isDigit))
