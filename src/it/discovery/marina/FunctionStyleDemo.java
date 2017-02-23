@@ -4,10 +4,6 @@ package it.discovery.marina;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-/**
- * Created by Марина on 16.02.2017.
- */
-
 public class FunctionStyleDemo {
    public static void main(String[] args){
         System.out.println(FunctionStyleDemo.countOfDigits("123"));
@@ -24,13 +20,13 @@ public class FunctionStyleDemo {
   }
 
 
-    static long countOfDigits(String incomingString) {
+    public static long countOfDigits(String incomingString) {
         return getStream(incomingString).map((value) -> value.filter(Character::isDigit))
                                         .map(IntStream::count)
                                         .orElse(0L);
     }
 
-    static Optional<IntStream> getStream(String incomingString) {
+    public static Optional<IntStream> getStream(String incomingString) {
         return Optional.ofNullable(incomingString).map(String::chars);
     }
 

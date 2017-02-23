@@ -29,15 +29,17 @@ public class FunctionStyleDemo2 {
         listStr2.add("6");
         System.out.println(combine(listStr1, listStr2));
 
+        System.out.println(combine(listStr1, null));
+
         System.out.println(combine(null, null));
     }
 
-   static <T> List<T> combine(List<T> firstList, List<T> secondList)
+    public static <T> List<T> combine(List<T> firstList, List<T> secondList)
     {
         return Stream.concat(getStream(firstList), getStream(secondList)).distinct().collect(Collectors.toList());
     }
 
-    static <T> Stream<T> getStream(List<T> collection) {
+    public static <T> Stream<T> getStream(List<T> collection) {
         return Optional.ofNullable(collection).map(Collection::stream).orElse(Stream.empty());
     }
 
