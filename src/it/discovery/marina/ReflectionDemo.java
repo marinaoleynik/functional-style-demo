@@ -1,6 +1,7 @@
 package it.discovery.marina;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -32,6 +33,40 @@ public class ReflectionDemo
         getFirstDuplicate(null);
         getMethodsCount(null, null);
 
+        System.out.println(getNonAbstractSuperclasses(ArrayList.class));
+        System.out.println(getNonAbstractSuperclasses(List.class));
+        System.out.println(getNonAbstractSuperclasses(null));
+        System.out.println(getNonAbstractSuperclasses(HashMap.class));
+
+        getInterfaces(null);
+        getInterfaces(HashMap.class).forEach(System.out::println);
+
+
+    }
+
+    public static List<Class> getNonAbstractSuperclasses(Class class1)
+    {
+        List<Class> list = new ArrayList<>();
+        while(class1 != null)
+        {
+            list = combine(list, getInterfaces(class1).collect(Collectors.toList()));
+            class1 = class1.getSuperclass();
+            if(Optional.ofNullable(class1).filter((n)->!Modifier.isAbstract(n.getModifiers())).isPresent())
+            {
+                list.add(class1);
+            }
+        }
+        return list;
+    }
+
+    public static Stream<Class> getInterfaces(Class class1)
+    {
+        if(class1 == null)
+        {
+            return Stream.empty();
+        }
+        Class[] interfaces = class1.getInterfaces();
+        return Stream.concat(Arrays.stream(interfaces), Arrays.stream(interfaces).flatMap(ReflectionDemo::getInterfaces));
     }
 
     public static List<Method> getCommonMethods(Class class1, Class class2)
